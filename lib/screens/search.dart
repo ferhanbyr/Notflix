@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:notflix/models/movie.dart';
+import 'package:notflix/models/most.dart';
+import 'package:notflix/screens/movie_details_page.dart';
 import 'package:notflix/services/database_service.dart';
 
 class SearchPage extends StatefulWidget {
@@ -21,6 +23,22 @@ class _SearchPageState extends State<SearchPage> {
         _futureMovies = DatabaseService().searchMovies(query);
       });
     }
+  }
+
+  void _navigateToMovieDetails(Movie movie) {
+    // Movie nesnesini Most nesnesine dönüştür
+    Most movieAsMost = Most(
+      title: movie.title,
+      poster: movie.poster,
+      year: movie.year,
+    );
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailsPage(movie: movieAsMost),
+      ),
+    );
   }
 
   @override
@@ -120,14 +138,18 @@ class _SearchPageState extends State<SearchPage> {
                           itemCount: movies.length,
                           itemBuilder: (context, index) {
                             final movie = movies[index];
-                            return ListTile(
-                              leading: Image.network(
+                            return InkWell(
+                              onTap: () => _navigateToMovieDetails(movie),
+                              child: ListTile(
+                                leading: Hero(
+                                  tag: 'movie_poster_${movie.title}',
+                                  child: Image.network(
                                 movie.poster,
                                 width: 80,
                                 errorBuilder: (context, error, stackTrace) =>
                                     const Icon(Icons.broken_image),
                               ),
-                              
+                                ),
                               title: Text(movie.title,
                                   style: const TextStyle(
                                       color: Colors.white,
@@ -136,6 +158,7 @@ class _SearchPageState extends State<SearchPage> {
                                   style: const TextStyle(
                                       color: Colors.white54,
                                       fontWeight: FontWeight.bold)),
+                              ),
                             );
                           },
                         );

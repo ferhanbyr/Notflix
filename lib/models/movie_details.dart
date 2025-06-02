@@ -15,11 +15,13 @@ class Details {
 
   factory Details.fromJson(Map<String, dynamic> json) {
     return Details(
-      title: json['title'],
-      overview: json['overview'],
-      releaseDate: json['release_date'],
-      rating: json['vote_average'].toDouble(),
-      posterPath: json['poster_path'],
+      title: json['Title'] ?? '',
+      overview: json['Plot'] ?? '',
+      releaseDate: json['Released'] ?? '',
+      rating: json['imdbRating'] != null && json['imdbRating'] != 'N/A' 
+          ? double.tryParse(json['imdbRating']) ?? 0.0 
+          : 0.0,
+      posterPath: json['Poster'] ?? '',
     );
   }
 }

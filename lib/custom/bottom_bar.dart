@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:notflix/screens/favorites.dart';
+import 'package:notflix/screens/profile_page.dart';
 import 'package:notflix/screens/home.dart';
-import 'package:notflix/screens/movie_list.dart';
+import 'package:notflix/screens/profile_page.dart';
 
 
 
@@ -17,9 +20,9 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const HomePage(),        // Arama Sayfası
-    const MovieListPage(),     // Listeleme Sayfası
-    const FavoritesPage(),     // Favoriler Sayfası
+    const HomePage(),       
+    const FavoritesPage(),     // Listeleme Sayfası
+    const ProfilePage(),     // Favoriler Sayfası
   ];
 
   void _onItemTapped(int index) {
@@ -32,25 +35,25 @@ class _BottomBarState extends State<BottomBar> {
       
       body: _pages[_selectedIndex], // Aktif sayfa gösterilir
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 170, 33, 243),
-        unselectedItemColor: const Color.fromARGB(255, 49, 49, 186),
+            currentIndex: _selectedIndex,
+            selectedItemColor: const Color.fromARGB(255, 170, 33, 243),
+            unselectedItemColor: const Color.fromARGB(255, 49, 49, 186),
         backgroundColor: Colors.black,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Ara',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.movie),
-            label: 'Filmler',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favoriler',
-          ),
-        ],
+            onTap: _onItemTapped,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
       ),
     );
   }
