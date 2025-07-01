@@ -97,4 +97,4 @@ Contributions are welcome! Please follow these steps:
 ## Acknowledgments
 
 - [TMDb](https://www.omdbapi.com) for the API.
-- The SwiftUI community for inspiration and best practices.
+- The Flutter community for inspiration and best practices.
